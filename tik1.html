@@ -1,0 +1,1450 @@
+
+<!DOCTYPE html>
+<html lang="sq">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#080f20">
+<title>TECH DESIGN 3D | Design Your World</title>
+
+<style>
+:root {
+    --bg:#080f20;
+    --panel:#111d32;
+    --card:#192941;
+    --blue:#168cff;
+    --cyan:#20d5ff;
+    --text:#f4f8ff;
+    --muted:#9aabc2;
+    --border:#263d59;
+    --green:#25d69a;
+}
+
+* {
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body {
+    background:var(--bg);
+    color:var(--text);
+    font-family:Segoe UI,Arial,sans-serif;
+}
+
+button,input,textarea,select {
+    font:inherit;
+}
+
+button {
+    cursor:pointer;
+}
+
+header {
+    height:72px;
+    background:#0c1628;
+    border-bottom:1px solid var(--border);
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 5%;
+    position:sticky;
+    top:0;
+    z-index:100;
+}
+
+.logo {
+    font-size:22px;
+    font-weight:900;
+    letter-spacing:1px;
+}
+
+.logo span {
+    color:var(--cyan);
+}
+
+nav {
+    display:flex;
+    gap:8px;
+}
+
+nav button {
+    border:0;
+    background:transparent;
+    color:var(--muted);
+    padding:12px;
+    border-radius:9px;
+    font-size:13px;
+}
+
+nav button:hover,nav button.active {
+    background:#16395c;
+    color:white;
+}
+
+.menu-toggle {
+    display:none;
+    background:var(--card);
+    border:1px solid var(--border);
+    color:white;
+    padding:9px 13px;
+    border-radius:8px;
+}
+
+main {
+    max-width:1250px;
+    margin:auto;
+    padding:30px 22px 70px;
+}
+
+.page {
+    display:none;
+    animation:fade .3s ease;
+}
+
+.page.active {
+    display:block;
+}
+
+@keyframes fade {
+    from {opacity:0;transform:translateY(8px)}
+    to {opacity:1;transform:translateY(0)}
+}
+
+h1 {
+    font-size:clamp(25px,4vw,38px);
+    margin-bottom:9px;
+}
+
+h2 {
+    font-size:23px;
+    margin-bottom:15px;
+}
+
+h3 {
+    font-size:17px;
+}
+
+.subtitle {
+    color:var(--muted);
+    margin-bottom:22px;
+    line-height:1.6;
+}
+
+.hero {
+    min-height:370px;
+    border-radius:20px;
+    overflow:hidden;
+    position:relative;
+    display:flex;
+    align-items:end;
+    padding:35px;
+    background:
+    linear-gradient(90deg,rgba(3,12,30,.97),rgba(3,12,30,.2)),
+    url('https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1600&q=85') center/cover;
+    border:1px solid #20517a;
+}
+
+.hero-content {
+    max-width:530px;
+}
+
+.hero h1 {
+    font-size:clamp(30px,5vw,50px);
+}
+
+.hero h1 span {
+    color:var(--cyan);
+}
+
+.hero p {
+    color:#d0e1f6;
+    line-height:1.7;
+    margin:14px 0 22px;
+}
+
+.btn {
+    padding:12px 19px;
+    border:0;
+    border-radius:9px;
+    background:linear-gradient(100deg,#0879e8,#17b7ec);
+    color:white;
+    font-weight:700;
+    transition:.2s;
+}
+
+.btn:hover {
+    transform:translateY(-2px);
+    filter:brightness(1.12);
+}
+
+.btn.secondary {
+    background:#253b57;
+}
+
+.btn.danger {
+    background:#9d2d48;
+}
+
+.btn.green {
+    background:#078c70;
+}
+
+.grid {
+    display:grid;
+    grid-template-columns:repeat(3,minmax(0,1fr));
+    gap:17px;
+    margin:22px 0;
+}
+
+.card {
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:15px;
+    padding:21px;
+    transition:.2s;
+}
+
+.card:hover {
+    border-color:var(--blue);
+    transform:translateY(-3px);
+}
+
+.card-icon {
+    width:45px;
+    height:45px;
+    display:grid;
+    place-items:center;
+    background:#123b65;
+    border-radius:12px;
+    color:var(--cyan);
+    font-size:23px;
+    margin-bottom:16px;
+}
+
+.card p {
+    color:var(--muted);
+    line-height:1.6;
+    font-size:14px;
+    margin:9px 0 15px;
+}
+
+.section-title {
+    margin-top:34px;
+    margin-bottom:16px;
+}
+
+.tag {
+    display:inline-block;
+    background:#12385a;
+    color:#63cfff;
+    border-radius:6px;
+    padding:5px 9px;
+    font-size:11px;
+    margin-bottom:12px;
+}
+
+.stats {
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:14px;
+    margin:22px 0;
+}
+
+.stat {
+    background:#101d31;
+    border:1px solid var(--border);
+    padding:18px;
+    border-radius:12px;
+}
+
+.stat strong {
+    font-size:27px;
+    display:block;
+    color:var(--cyan);
+}
+
+.stat span {
+    color:var(--muted);
+    font-size:13px;
+}
+
+input,textarea,select {
+    width:100%;
+    padding:12px;
+    border-radius:8px;
+    border:1px solid var(--border);
+    background:#0b1729;
+    color:white;
+    outline:none;
+    margin:7px 0 13px;
+}
+
+input:focus,textarea:focus,select:focus {
+    border-color:var(--cyan);
+}
+
+label {
+    color:#c5d7ed;
+    font-size:13px;
+}
+
+.tool-row {
+    display:flex;
+    flex-wrap:wrap;
+    gap:9px;
+    margin:12px 0;
+}
+
+.tool-row button {
+    padding:9px 14px;
+}
+
+canvas {
+    display:block;
+    width:100%;
+    height:380px;
+    background:white;
+    border-radius:10px;
+    border:1px solid var(--border);
+    touch-action:none;
+    cursor:crosshair;
+}
+
+.workspace {
+    background:#101d31;
+    padding:17px;
+    border:1px solid var(--border);
+    border-radius:15px;
+    margin-top:18px;
+}
+
+.result {
+    background:#102e48;
+    border:1px solid #1a6084;
+    border-radius:10px;
+    padding:17px;
+    margin-top:12px;
+    color:var(--cyan);
+    font-weight:700;
+    line-height:1.7;
+}
+
+.lesson {
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:13px;
+    margin:12px 0;
+    overflow:hidden;
+}
+
+.lesson summary {
+    padding:17px;
+    cursor:pointer;
+    font-weight:700;
+}
+
+.lesson-content {
+    padding:5px 18px 20px;
+    color:#c4d3e5;
+    line-height:1.8;
+}
+
+.lesson-content h3 {
+    color:var(--cyan);
+    margin:14px 0 7px;
+}
+
+.lesson-content ul {
+    padding-left:20px;
+}
+
+.lesson-content li {
+    margin:5px 0;
+}
+
+.diagram {
+    background:#0c192b;
+    padding:18px;
+    border-radius:12px;
+    overflow:auto;
+    margin:15px 0;
+}
+
+.diagram svg {
+    display:block;
+    width:100%;
+    min-width:300px;
+    height:auto;
+}
+
+.model-box {
+    min-height:280px;
+    display:grid;
+    place-items:center;
+    background:radial-gradient(circle,#193c64,#081324 75%);
+    border-radius:14px;
+    overflow:hidden;
+}
+
+.cube {
+    position:relative;
+    width:110px;
+    height:110px;
+    transform-style:preserve-3d;
+    transform:rotateX(-25deg) rotateY(35deg);
+    animation:rotateCube 12s linear infinite;
+}
+
+.face {
+    position:absolute;
+    width:110px;
+    height:110px;
+    border:2px solid #49dfff;
+    background:rgba(0,143,255,.25);
+    box-shadow:0 0 20px rgba(0,190,255,.2) inset;
+}
+
+.front {transform:translateZ(55px)}
+.back {transform:rotateY(180deg) translateZ(55px)}
+.right {transform:rotateY(90deg) translateZ(55px)}
+.left {transform:rotateY(-90deg) translateZ(55px)}
+.top {transform:rotateX(90deg) translateZ(55px)}
+.bottom {transform:rotateX(-90deg) translateZ(55px)}
+
+@keyframes rotateCube {
+    from {transform:rotateX(-25deg) rotateY(0deg)}
+    to {transform:rotateX(335deg) rotateY(360deg)}
+}
+
+table {
+    width:100%;
+    border-collapse:collapse;
+    margin-top:15px;
+    font-size:13px;
+}
+
+td,th {
+    padding:12px 9px;
+    border-bottom:1px solid var(--border);
+    text-align:left;
+}
+
+th {
+    color:var(--cyan);
+}
+
+.symbol {
+    font-size:26px;
+    color:var(--cyan);
+    text-align:center;
+    width:65px;
+}
+
+.quiz-option {
+    display:block;
+    padding:13px;
+    background:#14243b;
+    border:1px solid var(--border);
+    border-radius:9px;
+    margin:9px 0;
+    cursor:pointer;
+}
+
+.quiz-option:hover {
+    border-color:var(--cyan);
+}
+
+.quiz-option input {
+    width:auto;
+    margin-right:10px;
+}
+
+footer {
+    border-top:1px solid var(--border);
+    color:var(--muted);
+    padding:23px;
+    text-align:center;
+    font-size:13px;
+}
+
+.notice {
+    color:var(--muted);
+    font-size:12px;
+    line-height:1.6;
+    margin-top:10px;
+}
+
+.project-item {
+    background:#152741;
+    padding:14px;
+    border-radius:9px;
+    border:1px solid var(--border);
+    margin:10px 0;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+}
+
+.project-item button {
+    padding:7px 10px;
+}
+
+@media(max-width:800px) {
+    .grid {grid-template-columns:repeat(2,1fr)}
+    nav {display:none;position:absolute;top:72px;left:0;width:100%;background:#0c1628;padding:12px;flex-direction:column}
+    nav.open {display:flex}
+    nav button {text-align:left}
+    .menu-toggle {display:block}
+    .hero {min-height:340px;padding:23px}
+}
+
+@media(max-width:520px) {
+    main {padding:20px 13px 50px}
+    .grid {grid-template-columns:1fr}
+    .stats {grid-template-columns:1fr 1fr}
+    .hero {min-height:330px}
+    canvas {height:300px}
+    header {padding:0 15px}
+    .logo {font-size:18px}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">TECH DESIGN <span>3D.</span></div>
+
+    <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+
+    <nav id="navigation">
+        <button class="active" onclick="showPage('home',this)">Home</button>
+        <button onclick="showPage('lessons',this)">Mësimet</button>
+        <button onclick="showPage('drawing',this)">2D Drawing</button>
+        <button onclick="showPage('model',this)">3D Modeling</button>
+        <button onclick="showPage('plan',this)">Planet</button>
+        <button onclick="showPage('projects',this)">Projektet</button>
+        <button onclick="showPage('quiz',this)">Kuizi</button>
+    </nav>
+</header>
+
+<main>
+
+<!-- HOME -->
+
+<section id="home" class="page active">
+
+    <div class="hero">
+        <div class="hero-content">
+            <span class="tag">TECHNOLOGY • DESIGN • ARCHITECTURE</span>
+            <h1>DESIGN YOUR <span>WORLD.</span></h1>
+            <p>
+                Mëso vizatimin teknik, krijo projekte 3D
+                dhe zbulo botën e dizajnimit modern.
+            </p>
+            <button class="btn" onclick="showPage('lessons')"
+>                Fillo të mësosh →
+            </button>
+            <button class="btn secondary" onclick="showPage('drawing')">
+                Hape vizatimin
+            </button>
+        </div>
+    </div>
+
+    <div class="stats">
+        <div class="stat">
+            <strong>7</strong>
+            <span>Njësi mësimore</span>
+        </div>
+        <div class="stat">
+            <strong>2D</strong>
+            <span>Vizatime teknike</span>
+        </div>
+        <div class="stat">
+            <strong>3D</strong>
+            <span>Modelim hapësinor</span>
+        </div>
+    </div>
+
+    <h2 class="section-title">Explore Design Studio</h2>
+
+    <div class="grid">
+
+        <div class="card">
+            <div class="card-icon">✏</div>
+            <h3>2D Drawing</h3>
+            <p>Vizato objekte, vija dhe forma teknike në hapësirën tënde të punës.</p>
+            <button class="btn" onclick="showPage('drawing')">Hap studio</button>
+        </div>
+
+        <div class="card">
+            <div class="card-icon">⬡</div>
+            <h3>3D Modeling</h3>
+            <p>Eksploro paraqitjen tredimensionale dhe format gjeometrike.</p>
+            <button class="btn" onclick="showPage('model')">Shiko modelet</button>
+        </div>
+
+        <div class="card">
+            <div class="card-icon">📐</div>
+            <h3>Technical Scale</h3>
+            <p>Mëso përpjesëtimet dhe llogarit dimensionet e objekteve.</p>
+            <button class="btn" onclick="showPage('scale')">Llogarit shkallën</button>
+        </div>
+
+        <div class="card">
+            <div class="card-icon">🏠</div>
+            <h3>Site Planning</h3>
+            <p>Shiko një shembull të planit të situatës së një objekti.</p>
+            <button class="btn" onclick="showPage('plan')">Hap planet</button>
+        </div>
+
+        <div class="card">
+            <div class="card-icon">▦</div>
+            <h3>Construction Symbols</h3>
+            <p>Njihu me simbolet që përdoren në vizatimet ndërtimore.</p>
+            <button class="btn" onclick="showPage('symbols')">Shiko simbolet</button>
+        </div>
+
+        <div class="card">
+            <div class="card-icon">📁</div>
+            <h3>My Projects</h3>
+            <p>Krijo dhe ruaj projektet e tua në pajisje.</p>
+            <button class="btn" onclick="showPage('projects')">Projektet e mia</button>
+        </div>
+
+    </div>
+
+    <h2 class="section-title">About this project</h2>
+
+    <div class="card">
+        <h3>Shkathtësitë e dizajnimit</h3>
+        <p>
+            Ky projekt është krijuar për të paraqitur rëndësinë
+            e skicimit, vizatimit teknik, modelimit 3D,
+            përpjesëtimeve, planifikimit dhe simboleve të ndërtimtarisë.
+        </p>
+        <span class="tag">EDUKIM • TEKNOLOGJI • KREATIVITET</span>
+    </div>
+
+</section>
+
+<!-- MESIMET -->
+
+<section id="lessons" class="page">
+    <h1>Learning Center</h1>
+    <p class="subtitle">Njësitë mësimore – Tema 1: Shkathtësitë e dizajnimit.</p>
+
+    <details class="lesson" open>
+        <summary>1.1 Skicimi i prodhimit të thjeshtë sipas kërkesave</summary>
+        <div class="lesson-content">
+            <h3>Çfarë është skicimi?</h3>
+            <p>
+                Skicimi është paraqitja e një ideje ose objekti
+                me anë të vijave dhe formave në letër ose në ekran.
+                Ai është një hap i rëndësishëm para realizimit të produktit.
+            </p>
+            <h3>Hapat e skicimit</h3>
+            <ul>
+                <li>Identifikimi i nevojës dhe kërkesave.</li>
+                <li>Përcaktimi i formës dhe madhësisë.</li>
+                <li>Vizatimi i formës fillestare.</li>
+                <li>Vendosja e dimensioneve.</li>
+                <li>Kontrollimi dhe përmirësimi i skicës.</li>
+            </ul>
+            <h3>Shembull: Skicimi i një tavoline</h3>
+            <div class="diagram">
+                <svg viewBox="0 0 400 220">
+                    <path d="M70 65 L310 65 L350 90 L110 90 Z" fill="#174b77" stroke="#22d5ff" stroke-width="2"/>
+                    <path d="M110 90 L350 90 L350 105 L110 105 Z" fill="#12659a" stroke="#22d5ff"/>
+                    <path d="M85 90 L85 185 M130 105 L130 190 M330 105 L330 185 M350 90 L350 170" stroke="#22d5ff" stroke-width="7"/>
+                    <path d="M70 48 L310 48 M70 43 L70 53 M310 43 L310 53" stroke="#20d5ff" stroke-width="1.5"/>
+                    <text x="160" y="38" fill="#20d5ff" font-size="13">120 cm</text>
+                    <text x="20" y="135" fill="#20d5ff" font-size="12">Tavolina</text>
+                </svg>
+            </div>
+            <p>Skica ndihmon që produkti të realizohet sipas dimensioneve të planifikuara.</p>
+        </div>
+    </details>
+
+    <details class="lesson">
+        <summary>1.2 Metodat e paraqitjes së vizatimeve teknike tredimensionale</summary>
+        <div class="lesson-content">
+            <h3>Çfarë është vizatimi 3D?</h3>
+            <p>
+                Vizatimi tredimensional paraqet një objekt me gjatësi,
+                gjerësi dhe lartësi. Kjo na ndihmon ta kuptojmë
+                formën e objektit nga kënde të ndryshme.
+            </p>
+            <h3>Metodat kryesore</h3>
+            <ul>
+                <li><b>Izometrike:</b> paraqet tri drejtimet kryesore të objektit.</li>
+                <li><b>Perspektivë:</b> paraqet objektin në mënyrë më reale.</li>
+                <li><b>Oblike:</b> paraqet faqen ballore dhe thellësinë.</li>
+                <li><b>Projeksioni ortogonal:</b> paraqitja ballore, anësore dhe nga lart.</li>
+            </ul>
+            <div class="diagram">
+                <svg viewBox="0 0 400 220">
+                    <path d="M130 75 L210 35 L290 75 L210 115 Z" fill="#167bb9" stroke="#31dfff" stroke-width="2"/>
+                    <path d="M130 75 L130 160 L210 200 L210 115 Z" fill="#12436d" stroke="#31dfff" stroke-width="2"/>
+                    <path d="M210 115 L290 75 L290 160 L210 200 Z" fill="#0c8cb4" stroke="#31dfff" stroke-width="2"/>
+                </svg>
+            </div>
+        </div>
+    </details>
+
+    <details class="lesson">
+        <summary>1.3 Përdorimi i softuerit aplikativ për dizajnim</summary>
+        <div class="lesson-content">
+            <h3>Softuerët e dizajnit</h3>
+            <p>
+                Softuerët aplikativë përdoren për krijimin,
+                ndryshimin dhe paraqitjen e projekteve teknike
+                në kompjuter.
+            </p>
+            <ul>
+                <li><b>AutoCAD:</b> vizatime teknike 2D dhe 3D.</li>
+                <li><b>SketchUp:</b> modelim i objekteve dhe ndërtesave 3D.</li>
+                <li><b>Blender:</b> modelim dhe vizualizim tredimensional.</li>
+                <li><b>Sweet Home 3D:</b> planifikim i hapësirave të brendshme.</li>
+            </ul>
+            <h3>Përparësitë</h3>
+            <ul>
+                <li>Saktësi më e madhe.</li>
+                <li>Kursim i kohës.</li>
+                <li>Mundësi për korrigjime.</li>
+                <li>Paraqitje më profesionale.</li>
+            </ul>
+        </div>
+    </details>
+
+    <details class="lesson">
+        <summary>1.4 Vizatimi i objekteve në përpjesëtime të ndryshme</summary>
+        <div class="lesson-content">
+            <h3>Çfarë është përpjesëtimi?</h3>
+            <p>
+                Përpjesëtimi tregon raportin ndërmjet madhësisë
+                reale të objektit dhe madhësisë së paraqitur në vizatim.
+            </p>
+            <ul>
+                <li>1:1 – madhësia reale.</li>
+                <li>1:2 – vizatimi është dy herë më i vogël.</li>
+                <li>1:5 – vizatimi është pesë herë më i vogël.</li>
+                <li>2:1 – vizatimi është dy herë më i madh.</li>
+            </ul>
+            <p>Shembull: një objekt me gjatësi 100 cm në shkallën 1:2 vizatohet me gjatësi 50 cm.</p>
+        </div>
+    </details>
+
+    <details class="lesson">
+        <summary>1.5 Krijimi i një projekti për realizimin e punëve të caktuara</summary>
+        <div class="lesson-content">
+            <h3>Çfarë është projekti?</h3>
+            <p>
+                Projekti është një plan i organizuar që përshkruan
+                punën që duhet të realizohet, materialet, kohën
+                dhe hapat e nevojshëm.
+            </p>
+            <h3>Fazat e projektit</h3>
+            <ol>
+                <li>Identifikimi i problemit.</li>
+                <li>Planifikimi i zgjidhjes.</li>
+                <li>Skicimi dhe vizatimi.</li>
+                <li>Përzgjedhja e materialeve.</li>
+                <li>Realizimi i punës.</li>
+                <li>Kontrollimi i rezultatit.</li>
+            </ol>
+            <p>Shembull: projektimi dhe ndërtimi i një rafti të vogël prej druri.</p>
+        </div>
+    </details>
+
+    <details class="lesson">
+        <summary>1.6 Vizatimi i planit të situatës dhe hollësitë e tij</summary>
+        <div class="lesson-content">
+            <h3>Plani i situatës</h3>
+            <p>
+                Plani i situatës është vizatim teknik që tregon
+                vendndodhjen e një objekti në parcelë dhe raportin
+                e tij me rrethinën.
+            </p>
+            <ul>
+                <li>Vendndodhja e ndërtesës.</li>
+                <li>Kufijtë e parcelës.</li>
+                <li>Rrugët dhe hyrjet.</li>
+                <li>Hapësirat e gjelbra.</li>
+                <li>Orientimi dhe drejtimi verior.</li>
+                <li>Distancat dhe dimensionet.</li>
+            </ul>
+            <button class="btn" onclick="showPage('plan')">Shiko shembullin e planit</button>
+        </div>
+    </details>
+
+    <details class="lesson">
+        <summary>1.6.1 Simbolet e ndërtimtarisë</summary>
+        <div class="lesson-content">
+            <p>
+                Simbolet e ndërtimtarisë përdoren në planet teknike
+                për të paraqitur elemente të ndryshme të ndërtesave.
+            </p>
+            <ul>
+                <li>Dyert dhe drejtimi i hapjes.</li>
+                <li>Dritaret.</li>
+                <li>Muret.</li>
+                <li>Shkallët.</li>
+                <li>Mobiliet dhe pajisjet sanitare.</li>
+            </ul>
+            <button class="btn" onclick="showPage('symbols')">Hap tabelën e simboleve</button>
+        </div>
+    </details>
+</section>
+
+<!-- VIZATIMI 2D -->
+
+<section id="drawing" class="page">
+    <h1>2D Drawing Studio</h1>
+    <p class="subtitle">Krijo skicat dhe vizatimet e tua teknike.</p>
+
+    <div class="workspace">
+        <div class="tool-row">
+            <button class="btn" onclick="setTool('pen')">✏ Lapsi</button>
+            <button class="btn secondary" onclick="setTool('line')">╱ Vijë</button>
+            <button class="btn secondary" onclick="setTool('rect')">▭ Drejtkëndësh</button>
+            <button class="btn secondary" onclick="setTool('circle')">◯ Rreth</button>
+            <button class="btn secondary" onclick="setTool('erase')">Fshirësi</button>
+        </div>
+
+        <label>Ngjyra e vizatimit</label>
+        <input type="color" id="drawColor" value="#1677ff">
+
+        <label>Trashësia e vijës</label>
+        <input type="range" id="drawSize" min="1" max="15" value="3">
+
+        <canvas id="drawingCanvas" width="1000" height="600"></canvas>
+
+        <div class="tool-row">
+            <button class="btn secondary" onclick="clearCanvas()">Pastro</button>
+            <button class="btn green" onclick="downloadDrawing()">Shkarko vizatimin</button>
+        </div>
+        <p class="notice">Vizato me maus ose me gisht në ekranin me prekje.</p>
+    </div>
+</section>
+
+<!-- MODELIMI 3D -->
+
+<section id="model" class="page">
+    <h1>3D Modeling Studio</h1>
+    <p class="subtitle">Eksploro format gjeometrike në hapësirë tredimensionale.</p>
+
+    <div class="card">
+        <span class="tag">3D INTERACTIVE MODEL</span>
+        <h3>Kubi tredimensional</h3>
+        <p>Kubi ka gjashtë faqe, tetë kulme dhe dymbëdhjetë brinjë.</p>
+
+        <div class="model-box">
+            <div class="cube">
+                <div class="face front"></div>
+                <div class="face back"></div>
+                <div class="face right"></div>
+                <div class="face left"></div>
+                <div class="face top"></div>
+                <div class="face bottom"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="grid">
+        <div class="card">
+            <div class="card-icon">▣</div>
+            <h3>Kubi</h3>
+            <p>Ka gjashtë faqe katrore të barabarta.</p>
+        </div>
+        <div class="card">
+            <div class="card-icon">△</div>
+            <h3>Piramida</h3>
+            <p>Ka një bazë dhe faqe anësore trekëndore.</p>
+        </div>
+        <div class="card">
+            <div class="card-icon">◯</div>
+            <h3>Cilindri</h3>
+            <p>Ka dy baza rrethore dhe një sipërfaqe anësore të lakuar.</p>
+        </div>
+    </div>
+
+    <div class="card">
+        <h3>Dimensionet e kubit</h3>
+        <p>Formula e vëllimit: V = a × a × a</p>
+        <label>Gjatësia e brinjës (cm)</label>
+        <input id="cubeSide" type="number" value="5" min="0.1">
+        <button class="btn" onclick="calculateCube()">Llogarit vëllimin</button>
+        <div class="result" id="cubeResult">Rezultati do të shfaqet këtu.</div>
+    </div>
+</section>
+
+<!-- SHKALLA -->
+
+<section id="scale" class="page">
+    <h1>Technical Scale Calculator</h1>
+    <p class="subtitle">Llogarit madhësinë e objekteve në vizatim teknik.</p>
+
+    <div class="card">
+        <h3>Llogaritësi i përpjesëtimit</h3>
+        <label>Madhësia reale (cm)</label>
+        <input type="number" id="realSize" placeholder="Shembull: 200">
+
+        <label>Shkalla e vizatimit</label>
+        <select id="scaleValue">
+            <option value="1">1 : 1</option>
+            <option value="2">1 : 2</option>
+            <option value="5">1 : 5</option>
+            <option value="10">1 : 10</option>
+            <option value="20">1 : 20</option>
+            <option value="50">1 : 50</option>
+            <option value="100">1 : 100</option>
+            <option value="0.5">2 : 1</option>
+        </select>
+
+        <button class="btn" onclick="calculateScale()">Llogarit</button>
+        <div class="result" id="scaleResult">Rezultati do të shfaqet këtu.</div>
+    </div>
+
+    <div class="card">
+        <h3>Shembuj të përpjesëtimeve</h3>
+        <table>
+            <tr><th>Shkalla</th><th>Kuptimi</th></tr>
+            <tr><td>1:1</td><td>Madhësi reale</td></tr>
+            <tr><td>1:2</td><td>Dy herë më i vogël</td></tr>
+            <tr><td>1:5</td><td>Pesë herë më i vogël</td></tr>
+            <tr><td>1:10</td><td>Dhjetë herë më i vogël</td></tr>
+            <tr><td>1:100</td><td>Njëqind herë më i vogël</td></tr>
+            <tr><td>2:1</td><td>Dy herë më i madh</td></tr>
+        </table>
+    </div>
+</section>
+
+<!-- PLANI I SITUATES -->
+
+<section id="plan" class="page">
+    <h1>Site Planning</h1>
+    <p class="subtitle">Shembull ilustrues i planit të situatës së një shtëpie.</p>
+
+    <div class="card">
+        <span class="tag">ARCHITECTURAL SITE PLAN</span>
+        <h3>Plani i parcelës</h3>
+
+        <div class="diagram">
+            <svg viewBox="0 0 600 460">
+                <rect x="40" y="30" width="510" height="390" fill="#173047" stroke="#20d5ff" stroke-width="3" stroke-dasharray="8 5"/>
+
+                <rect x="165" y="100" width="260" height="190" fill="#526d83" stroke="white" stroke-width="3"/>
+
+                <rect x="165" y="100" width="260" height="18" fill="#0e8ac0"/>
+                <rect x="165" y="272" width="260" height="18" fill="#0e8ac0"/>
+
+                <rect x="165" y="118" width="260" height="154" fill="#213a50" stroke="#9cdfff" stroke-width="1"/>
+
+                <path d="M295 118 V272 M165 195 H425" stroke="white" stroke-width="2"/>
+
+                <rect x="278" y="187" width="35" height="8" fill="#20d5ff"/>
+                <rect x="278" y="195" width="35" height="8" fill="#20d5ff"/>
+
+                <text x="245" y="170" fill="white" font-size="17">DHOMA 1</text>
+                <text x="335" y="170" fill="white" font-size="17">DHOMA 2</text>
+                <text x="230" y="240" fill="white" font-size="17">SALLONI</text>
+                <text x="340" y="240" fill="white" font-size="17">KUZHINA</text>
+
+                <path d="M40 335 H550 V420 H40 Z" fill="#495b6d"/>
+                <path d="M40 350 H550 M40 405 H550" stroke="#e3eaf3" stroke-width="2" stroke-dasharray="12 8"/>
+                <text x="245" y="390" fill="white" font-size="17">RRUGA</text>
+
+                <rect x="70" y="70" width="55" height="40" fill="#168653"/>
+                <rect x="450" y="70" width="55" height="40" fill="#168653"/>
+                <rect x="455" y="215" width="50" height="65" fill="#168653"/>
+
+                <text x="75" y="58" fill="#4bdf9b" font-size="13">GJELBËRIM</text>
+                <text x="455" y="58" fill="#4bdf9b" font-size="13">GJELBËRIM</text>
+
+                <path d="M520 80 V35 M510 45 L520 30 L530 45" stroke="#20d5ff" stroke-width="3" fill="none"/>
+                <text x="535" y="42" fill="#20d5ff" font-size="16">V</text>
+
+                <text x="220" y="315" fill="#20d5ff" font-size="13">OBJEKTI BANESOR</text>
+            </svg>
+        </div>
+        <p class="notice">Ky është plan demonstrues për mësim, jo projekt ndërtimor për përdorim real.</p>
+    </div>
+
+    <div class="grid">
+        <div class="card">
+            <h3>🏠 Objekti</h3>
+            <p>Paraqet vendndodhjen dhe formën e ndërtesës në parcelë.</p>
+        </div>
+        <div class="card">
+            <h3>🌳 Gjelbërimi</h3>
+            <p>Tregon hapësirat e gjelbra dhe bimësinë.</p>
+        </div>
+        <div class="card">
+            <h3>🛣 Rrugët</h3>
+            <p>Paraqesin qasjen dhe lidhjen me objektin.</p>
+        </div>
+    </div>
+</section>
+
+<!-- SIMBOLET -->
+
+<section id="symbols" class="page">
+    <h1>Construction Symbols</h1>
+    <p class="subtitle">Simbolet e përdorura në vizatimet dhe planet ndërtimore.</p>
+
+    <div class="card">
+        <table>
+            <tr><th>Simboli</th><th>Emri</th><th>Përshkrimi</th></tr>
+            <tr><td class="symbol">━</td><td>Muri</td><td>Paraqet muret e objektit.</td></tr>
+            <tr><td class="symbol">▭</td><td>Dritarja</td><td>Hapje për dritë dhe ajrosje.</td></tr>
+            <tr><td class="symbol">↗</td><td>Dera</td><td>Hyrje dhe dalje e dhomës.</td></tr>
+            <tr><td class="symbol">⇧</td><td>Shkallët</td><td>Tregojnë drejtimin e ngjitjes.</td></tr>
+            <tr><td class="symbol">⊙</td><td>Pikë reference</td><td>Pikë orientuese në plan.</td></tr>
+            <tr><td class="symbol">N</td><td>Veriu</td><td>Tregon orientimin e planit.</td></tr>
+            <tr><td class="symbol">⌀</td><td>Diametri</td><td>Paraqet diametrin e një rrethi.</td></tr>
+            <tr><td class="symbol">±</td><td>Niveli</td><td>Shënimi i niveleve dhe lartësive.</td></tr>
+        </table>
+        <p class="notice">Shenjat grafike mund të ndryshojnë sipas standardit teknik dhe legjendës së secilit projekt.</p>
+    </div>
+</section>
+
+<!-- PROJEKTET -->
+
+<section id="projects" class="page">
+    <h1>My Design Projects</h1>
+    <p class="subtitle">Krijo dhe ruaj projektet e tua në këtë pajisje.</p>
+
+    <div class="card">
+        <h3>New Project</h3>
+        <label>Emri i projektit</label>
+        <input id="projectName" placeholder="Shembull: Shtëpia ime 3D">
+
+        <label>Përshkrimi</label>
+        <textarea id="projectDescription" rows="4" placeholder="Përshkruaj idenë e projektit..."></textarea>
+
+        <button class="btn" onclick="saveProject()">+ Ruaj projektin</button>
+    </div>
+
+    <h2 class="section-title">Projektet e ruajtura</h2>
+    <div id="projectList"></div>
+    <p class="notice">Projektet ruhen në shfletuesin e kësaj pajisjeje me LocalStorage. Mos i fshi të dhënat e shfletuesit nëse dëshiron t'i ruash.</p>
+</section>
+
+<!-- KUIZI -->
+
+<section id="quiz" class="page">
+    <h1>Design Knowledge Quiz</h1>
+    <p class="subtitle">Testo njohuritë e tua për shkathtësitë e dizajnimit.</p>
+
+    <div class="card">
+        <div id="quizArea"></div>
+        <div id="quizResult"></div>
+    </div>
+</section>
+
+</main>
+
+<footer>
+    <div class="logo">TECH DESIGN <span>3D.</span></div>
+    <p style="margin-top:10px">DESIGN YOUR WORLD.</p>
+    <p style="margin-top:7px">Projekt shkollor – Teknologji | Shkathtësitë e dizajnimit</p>
+    <p style="margin-top:7px">Punoi: Esma Ismajli</p>
+    <p style="margin-top:7px">© 2026 TECH DESIGN 3D</p>
+</footer>
+
+<script>
+
+// NAVIGIMI
+
+function showPage(page,button) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+
+    const selected = document.getElementById(page);
+    if(selected) selected.classList.add('active');
+
+    document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
+
+    if(button) button.classList.add('active');
+
+    const matching = [...document.querySelectorAll('nav button')]
+        .find(b => b.getAttribute('onclick')?.includes("'" + page + "'"));
+
+    if(matching) matching.classList.add('active');
+
+    document.getElementById('navigation').classList.remove('open');
+
+    if(page === 'projects') renderProjects();
+}
+
+function toggleMenu() {
+    document.getElementById('navigation').classList.toggle('open');
+}
+
+// VIZATIMI 2D
+
+const canvas = document.getElementById('drawingCanvas');
+const ctx = canvas.getContext('2d');
+
+let tool = 'pen';
+let drawing = false;
+let startX = 0;
+let startY = 0;
+let previousX = 0;
+let previousY = 0;
+let snapshot = null;
+
+function setTool(selected) {
+    tool = selected;
+}
+
+function getPosition(e) {
+    const rect = canvas.getBoundingClientRect();
+
+    return {
+        x:(e.clientX - rect.left) * canvas.width / rect.width,
+        y:(e.clientY - rect.top) * canvas.height / rect.height
+    };
+}
+
+canvas.addEventListener('pointerdown', e => {
+    e.preventDefault();
+    canvas.setPointerCapture(e.pointerId);
+
+    const p = getPosition(e);
+    drawing = true;
+
+    startX = previousX = p.x;
+    startY = previousY = p.y;
+
+    snapshot = ctx.getImageData(0,0,canvas.width,canvas.height);
+
+    if(tool === 'pen' || tool === 'erase') {
+        ctx.beginPath();
+        ctx.moveTo(startX,startY);
+    }
+});
+
+canvas.addEventListener('pointermove', e => {
+    if(!drawing) return;
+
+    const p = getPosition(e);
+    const size = Number(document.getElementById('drawSize').value);
+
+    ctx.lineWidth = size;
+    ctx.lineCap = 'round';
+    ctx.lineJoin = 'round';
+
+    ctx.strokeStyle = tool === 'erase'
+        ? '#ffffff'
+        : document.getElementById('drawColor').value;
+
+    if(tool === 'pen' || tool === 'erase') {
+        ctx.beginPath();
+        ctx.moveTo(previousX,previousY);
+        ctx.lineTo(p.x,p.y);
+        ctx.stroke();
+
+    } else {
+        ctx.putImageData(snapshot,0,0);
+        ctx.beginPath();
+
+        if(tool === 'line') {
+            ctx.moveTo(startX,startY);
+            ctx.lineTo(p.x,p.y);
+        }
+
+        if(tool === 'rect') {
+            ctx.rect(startX,startY,p.x-startX,p.y-startY);
+        }
+
+        if(tool === 'circle') {
+            const dx = p.x-startX;
+            const dy = p.y-startY;
+            const radius = Math.sqrt(dx*dx+dy*dy);
+            ctx.arc(startX,startY,radius,0,Math.PI*2);
+        }
+
+        ctx.stroke();
+    }
+
+    previousX = p.x;
+    previousY = p.y;
+});
+
+function stopDrawing() {
+    if(drawing) {
+        drawing = false;
+        ctx.closePath();
+    }
+}
+
+canvas.addEventListener('pointerup',stopDrawing);
+canvas.addEventListener('pointercancel',stopDrawing);
+canvas.addEventListener('pointerleave',stopDrawing);
+
+function clearCanvas() {
+    if(confirm('A dëshiron ta pastrosh vizatimin?')) {
+        ctx.clearRect(0,0,canvas.width,canvas.height);
+    }
+}
+
+function downloadDrawing() {
+    const link = document.createElement('a');
+    link.download = 'TECH-DESIGN-vizatimi.png';
+    link.href = canvas.toDataURL('image/png');
+    link.click();
+}
+
+// LLOGARITESI I PERPJESËTIMEVE
+
+function calculateScale() {
+    const real = Number(document.getElementById('realSize').value);
+    const scale = Number(document.getElementById('scaleValue').value);
+    const result = document.getElementById('scaleResult');
+
+    if(!Number.isFinite(real) || real <= 0) {
+        result.textContent = 'Ju lutem shkruani një madhësi të vlefshme.';
+        return;
+    }
+
+    const drawing = real * scale;
+
+    result.innerHTML =
+        'Madhësia reale: ' + real + ' cm<br>' +
+        'Madhësia në vizatim: ' + drawing.toFixed(2) + ' cm';
+}
+
+// VELLIMI I KUBIT
+
+function calculateCube() {
+    const side = Number(document.getElementById('cubeSide').value);
+
+    if(!Number.isFinite(side) || side <= 0) {
+        document.getElementById('cubeResult').textContent =
+            'Shkruani një madhësi të vlefshme.';
+        return;
+    }
+
+    const volume = side*side*side;
+
+    document.getElementById('cubeResult').textContent =
+        'Vëllimi i kubit është: ' + volume.toFixed(2) + ' cm³';
+}
+
+// PROJEKTET E RUAJTURA
+
+function getProjects() {
+    try {
+        return JSON.parse(localStorage.getItem('techDesignProjects') || '[]');
+    } catch {
+        return [];
+    }
+}
+
+function saveProject() {
+    const name = document.getElementById('projectName').value.trim();
+    const description = document.getElementById('projectDescription').value.trim();
+
+    if(!name) {
+        alert('Shkruaj emrin e projektit!');
+        return;
+    }
+
+    const projects = getProjects();
+
+    projects.push({
+        id:Date.now(),
+        name:name,
+        description:description,
+        date:new Date().toLocaleDateString('sq-AL')
+    });
+
+    localStorage.setItem('techDesignProjects',JSON.stringify(projects));
+
+    document.getElementById('projectName').value = '';
+    document.getElementById('projectDescription').value = '';
+
+    renderProjects();
+
+    alert('Projekti u ruajt me sukses!');
+}
+
+function renderProjects() {
+    const projects = getProjects();
+    const list = document.getElementById('projectList');
+
+    if(projects.length === 0) {
+        list.innerHTML = '<div class="card">Nuk ke ende projekte të ruajtura.</div>';
+        return;
+    }
+
+    list.innerHTML = '';
+
+    projects.forEach(project => {
+        const item = document.createElement('div');
+        item.className = 'project-item';
+
+        const content = document.createElement('div');
+        const title = document.createElement('h3');
+        const description = document.createElement('p');
+        const date = document.createElement('small');
+
+        title.textContent = project.name;
+        description.textContent = project.description || 'Pa përshkrim';
+        description.style.color = '#9aabc2';
+        date.textContent = project.date;
+        date.style.color = '#20d5ff';
+
+        content.append(title,description,date);
+
+        const del = document.createElement('button');
+        del.className = 'btn danger';
+        del.textContent = 'Fshi';
+        del.onclick = () => deleteProject(project.id);
+
+        item.append(content,del);
+        list.appendChild(item);
+    });
+}
+
+function deleteProject(id) {
+    if(!confirm('A dëshiron ta fshish këtë projekt?')) return;
+
+    const projects = getProjects().filter(p => p.id !== id);
+
+    localStorage.setItem('techDesignProjects',JSON.stringify(projects));
+
+    renderProjects();
+}
+
+// KUIZI
+
+const questions = [
+    {
+        q:'Çfarë është skicimi?',
+        a:['Paraqitja fillestare e një ideje','Ndërtimi i një objekti','Matja e temperaturës'],
+        correct:0
+    },
+    {
+        q:'Sa dimensione ka një objekt 3D?',
+        a:['Një','Dy','Tri'],
+        correct:2
+    },
+    {
+        q:'Cili softuer përdoret për vizatime teknike?',
+        a:['AutoCAD','Calculator','Notepad'],
+        correct:0
+    },
+    {
+        q:'Çfarë paraqet shkalla 1:1?',
+        a:['Objekt dy herë më të madh','Madhësinë reale','Objekt pesë herë më të vogël'],
+        correct:1
+    },
+    {
+        q:'Çfarë paraqet plani i situatës?',
+        a:['Vendndodhjen e objektit në parcelë','Ngjyrën e mureve','Llojin e lapsit'],
+        correct:0
+    },
+    {
+        q:'Për çfarë shërbejnë simbolet ndërtimore?',
+        a:['Për dekorim','Për paraqitjen e elementeve teknike','Për lojëra'],
+        correct:1
+    },
+    {
+        q:'Sa faqe ka kubi?',
+        a:['4','6','8'],
+        correct:1
+    },
+    {
+        q:'Cila është faza e parë e një projekti?',
+        a:['Identifikimi i problemit','Fshirja e vizatimit','Përfundimi'],
+        correct:0
+    }
+];
+
+let answers = {};
+
+function renderQuiz() {
+    const area = document.getElementById('quizArea');
+    area.innerHTML = '';
+
+    questions.forEach((question,index) => {
+        const block = document.createElement('div');
+
+        const title = document.createElement('h3');
+        title.textContent = (index+1) + '. ' + question.q;
+        title.style.margin = '18px 0 10px';
+
+        block.appendChild(title);
+
+        question.a.forEach((answer,answerIndex) => {
+            const label = document.createElement('label');
+            label.className = 'quiz-option';
+
+            const radio = document.createElement('input');
+            radio.type = 'radio';
+            radio.name = 'question' + index;
+            radio.value = answerIndex;
+
+            radio.addEventListener('change',() => {
+                answers[index] = answerIndex;
+            });
+
+            label.append(radio,document.createTextNode(answer));
+            block.appendChild(label);
+        });
+
+        area.appendChild(block);
+    });
+
+    const submit = document.createElement('button');
+    submit.className = 'btn';
+    submit.textContent = 'Përfundo kuizin';
+    submit.style.marginTop = '20px';
+    submit.onclick = finishQuiz;
+
+    area.appendChild(submit);
+}
+
+function finishQuiz() {
+    if(Object.keys(answers).length !== questions.length) {
+        alert('Përgjigju në të gjitha pyetjet!');
+        return;
+    }
+
+    let score = 0;
+
+    questions.forEach((question,index) => {
+        if(answers[index] === question.correct) score++;
+    });
+
+    const percent = Math.round(score/questions.length*100);
+
+    document.getElementById('quizResult').innerHTML =
+        '<div class="result">Rezultati yt: ' + score + '/' +
+        questions.length + '<br>Nota e suksesit: ' + percent +
+        '%<br>' +
+        (percent >= 80 ? 'Shkëlqyeshëm! 🏆' :
+         percent >= 50 ? 'Mirë! Vazhdo të ushtrosh!' :
+         'Provo përsëri!') +
+        '<br><br><button class="btn" onclick="resetQuiz()">Riprovo</button></div>';
+}
+
+function resetQuiz() {
+    answers = {};
+    document.getElementById('quizResult').innerHTML = '';
+    renderQuiz();
+}
+
+// NISJA
+
+renderQuiz();
+renderProjects();
+
+</script>
+
+</body>
+</html>
